@@ -57,7 +57,8 @@ const facebookLogin = new FacebookStrategy(facebookOptions, function (
 const googleOptions = {
   clientID: config.google_client_id,
   clientSecret: config.google_client_secret,
-  callbackURL: '/auth/google/callback'
+  callbackURL: '/auth/google/callback',
+  proxy: true
 };
 const googleLogin = new GoogleStrategy(googleOptions, function (
   accessToken,
