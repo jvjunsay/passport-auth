@@ -4,7 +4,7 @@ import history from '../history';
 
 export const signup = payload => async (dispatch, getState) => {
   try {
-    const response = await api.post('/signup', payload);
+    const response = await api.post('/api/signup', payload);
     dispatch({
       type: AUTH_USER,
       payload: response.data.token
@@ -22,7 +22,7 @@ export const signup = payload => async (dispatch, getState) => {
 
 export const signin = payload => async (dispatch, getState) => {
   try {
-    const response = await api.post('/signin', payload);
+    const response = await api.post('/api/signin', payload);
     dispatch({
       type: AUTH_USER,
       payload: response.data.token
@@ -35,6 +35,19 @@ export const signin = payload => async (dispatch, getState) => {
       type: AUTH_ERROR,
       payload: 'Invalid login creadentials'
     });
+  }
+};
+
+export const currentUser = payload => async (dispatch, getState) => {
+  try {
+    const response = await api.get('/api/currentuser?token=' + payload.token);
+    console.log(response.data);
+    dispatch({
+      type: AUTH_USER,
+      payload: response.data
+    });
+  } catch (e) {
+    console.log(e.message);
   }
 };
 

@@ -38,7 +38,7 @@ export class Header extends Component {
           <div className='right menu'>
             <div className='item'>
               <a
-                href='http://localhost:5000/auth/google'
+                href='/auth/google'
                 className='ui google plus button'
               >
                 <i className='google icon' />

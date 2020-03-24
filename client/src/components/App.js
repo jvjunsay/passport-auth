@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from './Header';
 import { Router, Route, Switch } from 'react-router-dom';
 import Welcome from './Welcome';
@@ -8,13 +9,17 @@ import Signout from './auth/Signout';
 import Signin from './auth/Signin';
 import history from '../history';
 import queryString from 'query-string';
+import { currentUser } from '../actions';
 
 export class App extends Component {
-  componentWillMount () {
+  componentDidMount () {
     const query = queryString.parse(window.location.search);
     if (query.token) {
       window.localStorage.setItem('mtoken', query.token);
+      this.props.currentUser({ token: query.token });
       window.location = '/feature';
+    } else if (window.localStorage.getItem('mtoken')) {
+      this.props.currentUser({ token: window.localStorage.getItem('mtoken') });
     }
   }
 
@@ -36,4 +41,13 @@ export class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    state
+  };
+};
+
+const mapDispatchToProps = { currentUser };
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

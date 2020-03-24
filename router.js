@@ -25,12 +25,12 @@ const facebookCallback = passport.authenticate('facebook', {
   session: false
 });
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.get('/', (req, res) => {
     res.send({ m: 'hi there' });
   });
-  app.post('/signup', Authentication.signup);
-  app.post('/signin', requireSignIn, Authentication.signIn);
+  app.post('/api/signup', Authentication.signup);
+  app.post('/api//signin', requireSignIn, Authentication.signIn);
   app.get('/auth/google', (req, res, next) => {
     req.session.returnTo = req.header('Referer');
     passport.authenticate('google', {
@@ -38,11 +38,8 @@ module.exports = function(app) {
       scope: ['profile', 'email']
     })(req, res, next);
   });
-  app.get(
-    '/auth/google/callback',
-    googleCallback,
-    Authentication.googleSignInCallBack
-  );
+  app.get('/auth/google/callback', googleCallback, Authentication.googleSignInCallBack);
   app.get('/auth/facebook', requireFacebookSignIn, Authentication.signIn);
   app.get('/auth/facebook/callback', facebookCallback, Authentication.signIn);
+  app.get('/api/currentuser', Authentication.currentUser);
 };

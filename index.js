@@ -10,7 +10,7 @@ var session = require('express-session');
 const app = express();
 app.use(passport.initialize());
 app.use(cors());
-app.use(session({secret: "Shh, its a secret!"}));
+app.use(session({ secret: 'Shh, its a secret!' }));
 
 mongoose.connect(
   'mongodb+srv://jv:jvpogi@testdb-ayccz.mongodb.net/test?retryWrites=true&w=majority',
@@ -41,6 +41,15 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 router(app);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -48,10 +48,6 @@ exports.signIn = (req, res, next) => {
     .send({ success: true, token: utility.tokenForUser(req.user) });
 };
 
-exports.googleSignIn = (req, res, next) => {
-  req.session.returnTo = req.originalUrl;
-};
-
 exports.googleSignInCallBack = (req, res, next) => {
   const token = utility.tokenForUser(req.user);
   const redirect = req.session.returnTo
@@ -59,4 +55,26 @@ exports.googleSignInCallBack = (req, res, next) => {
     : '/';
   res.redirect(redirect);
   delete req.session.returnTo;
+};
+
+exports.currentUser = (req, res, next) => {
+  const decodedToken = utility.decodeToken(req.query.token);
+
+  User.findById(decodedToken.sub, (err, existingUser) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (existingUser) {
+      const { email } = existingUser;
+      return res.status(200).send({
+        user: { email },
+        token: req.query.token
+      });
+    } else {
+      return res.status(200).send({
+        errorMessage: 'User not found.'
+      });
+    }
+  });
 };
