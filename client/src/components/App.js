@@ -9,7 +9,10 @@ import queryString from 'query-string';
 import { currentUser } from '../actions';
 import './style.css';
 import Layout from './Layout';
+import EmptyLayout from './EmptyLayout';
 import LoginForm from './auth/LoginForm';
+import Dashboard from './contents/Dashboard';
+import Blog from './contents/Blog';
 
 export class App extends Component {
   componentDidMount () {
@@ -23,16 +26,56 @@ export class App extends Component {
     }
   }
 
+  renderWithLayOut = (Path, Component, Layout) => {
+    return (
+      <Layout>
+        <Route path={Path} component={Component} />
+      </Layout>
+    );
+  };
+
+  renderWithLoginLayout (Component, LoginLayout) {
+    return (
+      <LoginLayout>
+        <Component />
+      </LoginLayout>
+    );
+  }
+
   render () {
     return (
       <div>
         <Router history={history}>
           <Switch>
-            <Route path='/' exact component={Layout} />
-            <Route path='/signup' exact component={Signup} />
-            <Route path='/signin' exact component={LoginForm} />
-            <Route path='/signout' exact component={Signout} />
-            <Route path='/feature' exact component={Feature} />
+            <Route
+              exact
+              path='/'
+              render={() => this.renderWithLayOut(this.path, Dashboard, Layout)}
+            />
+            <Route
+              exact
+              path='/blog'
+              render={() => this.renderWithLayOut(this.path, Blog, Layout)}
+            />
+            <Route
+              path='/signin'
+              render={() => this.renderWithLoginLayout(LoginForm, EmptyLayout)}
+            />
+
+            <Route
+              path='/signup'
+              render={() => this.renderWithLoginLayout(Signup, EmptyLayout)}
+            />
+
+            <Route
+              path='/signout'
+              render={() => this.renderWithLoginLayout(Signout, EmptyLayout)}
+            />
+
+            <Route
+              path='/feature'
+              render={() => this.renderWithLoginLayout(Feature, EmptyLayout)}
+            />
           </Switch>
         </Router>
       </div>

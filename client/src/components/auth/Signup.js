@@ -19,12 +19,17 @@ export class Signup extends Component {
           <h2 className='ui teal image header'>
             <div className='content'>Create an account</div>
           </h2>
-          <UserForm onSubmit={this.handleSubmit} buttonName='Sign Up' />
-          <div>{this.props.errorMessage}</div>
-          <a style={{ marginTop: '10px' }} href='/auth/google' className='ui fluid large google plus button'>
-            <i className='google icon' />
-            Signup with Google
-          </a>
+          <UserForm onSubmit={this.handleSubmit} buttonName='Sign Up'>
+            <div>{this.props.errorMessage}</div>
+            <a
+              style={{ marginTop: '10px' }}
+              href='/auth/google'
+              className='ui fluid large google plus button'
+            >
+              <i className='google icon' />
+              Signup with Google
+            </a>
+          </UserForm>
         </div>
       </div>
     );
@@ -37,9 +42,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = { signup };
 
-const conn = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signup);
+const conn = connect(mapStateToProps, mapDispatchToProps)(Signup);
 
 export default conn;

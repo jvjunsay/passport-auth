@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import history from '../history';
 export default ChildComponent => {
   class ComposedComponent extends Component {
     // Our component just got rendered
@@ -14,7 +15,7 @@ export default ChildComponent => {
 
     shouldNavigateAway () {
       if (!this.props.auth) {
-        this.props.history.push('/signin');
+        history.push('/signin');
       }
     }
 

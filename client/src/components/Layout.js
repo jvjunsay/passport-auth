@@ -10,7 +10,10 @@ export class Layout extends Component {
         <Sidebar />
         <div className='pusher' style={{ marginTop: '10px' }}>
           <div className='ui container'>
-            layout
+            <h1>Default Layout</h1>
+
+            {this.props.children}
+
           </div>
         </div>
       </div>

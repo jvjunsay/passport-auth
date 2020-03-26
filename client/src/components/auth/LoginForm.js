@@ -20,12 +20,18 @@ export class LoginForm extends Component {
           <h2 className='ui teal image header'>
             <div className='content'>Log-in to your account</div>
           </h2>
-          <UserForm onSubmit={this.handleSubmit} buttonName='Login' />
-          <div>{this.props.errorMessage}</div>
-          <a style={{ marginTop: '10px' }} href='/auth/google' className='ui fluid large google plus button'>
-            <i className='google icon' />
-            Signin with Google
-          </a>
+          <UserForm onSubmit={this.handleSubmit} buttonName='Login'>
+            <div>{this.props.errorMessage}</div>
+            <a
+              style={{ marginTop: '10px' }}
+              href='/auth/google'
+              className='ui fluid large google plus button'
+            >
+              <i className='google icon' />
+              Signin with Google
+            </a>
+          </UserForm>
+
           <div className='ui message'>
             New to us? <Link to='/signup'>Sign Up</Link>
           </div>
@@ -41,9 +47,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = { signin };
 
-const conn = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginForm);
+const conn = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 export default conn;
