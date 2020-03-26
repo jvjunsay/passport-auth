@@ -17,7 +17,7 @@ export class App extends Component {
     if (query.token) {
       window.localStorage.setItem('mtoken', query.token);
       this.props.currentUser({ token: query.token });
-      window.location = '/feature';
+      window.location = '/';
     } else if (window.localStorage.getItem('mtoken')) {
       this.props.currentUser({ token: window.localStorage.getItem('mtoken') });
     }
