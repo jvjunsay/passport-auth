@@ -27,7 +27,7 @@ const facebookCallback = passport.authenticate('facebook', {
 
 module.exports = function (app) {
   app.post('/api/signup', Authentication.signup);
-  app.post('/api//signin', requireSignIn, Authentication.signIn);
+  app.post('/api/login', requireSignIn, Authentication.signIn);
   app.get('/auth/google', (req, res, next) => {
     req.session.returnTo = req.header('Referer');
     passport.authenticate('google', {

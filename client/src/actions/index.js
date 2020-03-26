@@ -4,14 +4,14 @@ import history from '../history';
 
 export const signup = payload => async (dispatch, getState) => {
   try {
-    const response = await api.post('/api/signup', payload);
+    const response = await api.post('/api/signup', { email: payload.Email, password: payload.Password });
     dispatch({
       type: AUTH_USER,
       payload: response.data.token
     });
 
     window.localStorage.setItem('mtoken', response.data.token);
-    history.push('/feature');
+    history.push('/');
   } catch (e) {
     dispatch({
       type: AUTH_ERROR,
@@ -22,14 +22,14 @@ export const signup = payload => async (dispatch, getState) => {
 
 export const signin = payload => async (dispatch, getState) => {
   try {
-    const response = await api.post('/api/signin', payload);
+    const response = await api.post('/api/login', { email: payload.Email, password: payload.Password });
     dispatch({
       type: AUTH_USER,
       payload: response.data.token
     });
 
     window.localStorage.setItem('mtoken', response.data.token);
-    history.push('/feature');
+    history.push('/');
   } catch (e) {
     dispatch({
       type: AUTH_ERROR,

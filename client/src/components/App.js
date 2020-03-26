@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
 import { Router, Route, Switch } from 'react-router-dom';
-import Welcome from './Welcome';
 import Feature from './Feature';
 import Signup from './auth/Signup';
 import Signout from './auth/Signout';
-import Signin from './auth/Signin';
 import history from '../history';
 import queryString from 'query-string';
 import { currentUser } from '../actions';
+import './style.css';
+import Layout from './Layout';
+import LoginForm from './auth/LoginForm';
 
 export class App extends Component {
   componentDidMount () {
@@ -25,13 +25,12 @@ export class App extends Component {
 
   render () {
     return (
-      <div className='ui container'>
+      <div>
         <Router history={history}>
-          <Header />
           <Switch>
-            <Route path='/' exact component={Welcome} />
+            <Route path='/' exact component={Layout} />
             <Route path='/signup' exact component={Signup} />
-            <Route path='/signin' exact component={Signin} />
+            <Route path='/signin' exact component={LoginForm} />
             <Route path='/signout' exact component={Signout} />
             <Route path='/feature' exact component={Feature} />
           </Switch>
@@ -42,10 +41,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
-  return {
-    state
-  };
+  return { authenticated: state.auth.authenticated };
 };
 
 const mapDispatchToProps = { currentUser };
