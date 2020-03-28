@@ -66,12 +66,6 @@ export class App extends Component {
               path='/signup'
               render={() => this.renderWithLoginLayout(Signup, EmptyLayout)}
             />
-
-            <Route
-              path='/signout'
-              render={() => this.renderWithLoginLayout(Signout, EmptyLayout)}
-            />
-
             <Route
               path='/feature'
               render={() => this.renderWithLoginLayout(Feature, EmptyLayout)}

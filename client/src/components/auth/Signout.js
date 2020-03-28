@@ -4,13 +4,14 @@ import { signout } from '../../actions';
 import history from '../../history';
 
 export class Signout extends Component {
-  componentDidMount () {
+  handleClick = () => {
+    debugger;
     this.props.signout();
     history.push('/');
-  }
+  };
 
   render () {
-    return <div>Sign out</div>;
+    return <button onClick={this.handleClick} className='ui primary button'>Sign Out</button>;
   }
 }
 
